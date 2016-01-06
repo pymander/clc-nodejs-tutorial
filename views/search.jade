@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  h1= title
+  
+  p Advanced search uses 
+    a(href="https://lucene.apache.org/core/4_3_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Overview") Lucene Query Parser Syntax
+    | . Please read the documentation carefully before using!
+  
+  form(method='post', action='/documents/advancedsearch')
+    label Search Query: 
+      input(type='text', name='q', size='40')
+    br
+    input(type='submit', value='Search')
+    

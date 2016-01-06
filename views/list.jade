@@ -2,6 +2,10 @@ extends layout
 
 block content
   h1= title
+
+  if querystring
+    h2 Search query: #{querystring}
+    p #{items.length} results found.
   
   ul
     each doc in items

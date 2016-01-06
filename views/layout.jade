@@ -10,6 +10,11 @@ html
       a(href='/documents/add') Add Document
       |  | 
       a(href='/documents/list') List Documents
+      |  | 
+      a(href='/documents/advancedsearch') Advanced Search 
+      form#searchbar(method='get', action='/documents/search')
+        input(type='text', name='q', size='20', placeholder='Search term')
+        input(type='submit', value='Search')
   
     block content
 

@@ -144,4 +144,78 @@ router.get('/list', function(req, res, next) {
     });
 });
 
+/* SEARCH for documents using Orchestrate metadata */
+router.get('/search', function(req, res, next) {
+  if (!req.user) { res.redirect('/'); }
+
+  // Redirect to a plain document listing if there's no search query.
+  if (!req.query.q) {
+    res.redirect('/documents/list');
+  }
+
+  var tpl = { title : 'List Documents',
+              user : req.user,
+              session : req.session };
+
+  // Build our query string.
+  var queryString = 'title:"*XX*" OR keywords:"*XX*" OR filename:"*XX*"'.replace(/XX/g, req.query.q);
+  tpl.querystring = queryString;
+  
+  db.search('documents', queryString, {
+    sort: 'reftime.desc',
+    limit: 20
+  })
+    .then(function (result) {
+      tpl.items = result.body.results;
+
+      res.render('list', tpl);
+    })
+    .fail(function (err) {
+      throw new Error(err);
+    });
+});
+
+/* ADVANCED SEARCH form handler */
+router.get('/advancedsearch', function(req, res, next) {
+  if (!req.user) { res.redirect('/'); }
+
+  var tpl = { title : 'Advanced Document Search',
+              user : req.user,
+              session : req.session };
+
+
+  res.render('search', tpl);
+});
+
+/* ADVANCED SEARCH results handler */
+router.post('/advancedsearch', function(req, res, next) {
+  if (!req.user) { res.redirect('/'); }
+
+  var tpl = { title : 'Advanced Document Search Results',
+              user : req.user,
+              session : req.session };
+
+  // Redirect to the form if there's no search query.
+  if (!req.body.q) {
+    res.redirect('/documents/advancedsearch');
+  }
+
+  // Build our query string.
+  var queryString = req.body.q;
+  tpl.querystring = queryString;
+  
+  db.search('documents', queryString, {
+    sort: 'reftime.desc',
+    limit: 20
+  })
+    .then(function (result) {
+      tpl.items = result.body.results;
+
+      res.render('list', tpl);
+    })
+    .fail(function (err) {
+      throw new Error(err);
+    });
+});
+
 module.exports = router;

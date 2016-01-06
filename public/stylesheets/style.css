@@ -18,3 +18,7 @@ a {
 .notice {
    color: #0000FF;
 }
+
+#searchbar {
+   float: right;
+}
