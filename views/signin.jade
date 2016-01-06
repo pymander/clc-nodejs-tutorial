@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  h1= title
+  p Please sign in using the form below.
+  form(method='post', action='/login')
+    label Username: 
+      input(type='text', name='username', size='20')
+    br
+    label Password: 
+      input(type='password', name='password', size='20')
+    br
+    input(type='submit', value='Login')
+
+  h2 If you don't have an account, please make one
+  form(method='post', action='/local-reg')
+    label New username: 
+      input(type='text', name='username', size='20')
+    br
+    label New password: 
+      input(type='password', name='password', size='20')
+    br
+    input(type='submit', value='Create account')
+    

@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  h1= title
+
+  p 
+    | This example shows you how to authenticate against an 
+    a(href='orchestrate.io') Orchestrate 
+    | database.
+
+  if user
+    p 
+      strong Welcome back, #{user.username}!
+    p
+      a(href='/logout') Logout
+  else
+    p You have never been here before. 
+      a(href='/signin') Please sign in
+
