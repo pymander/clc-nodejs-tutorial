@@ -6,11 +6,13 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var busboy = require('connect-busboy');
+var request = require('request');
 
 // Our routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var documents = require('./routes/documents');
+var reader = require('./routes/read');
 
 // Load our functions.
 var funct = require('./functions.js');
@@ -91,6 +93,13 @@ app.set('view engine', 'jade');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+
+// Reverse proxy to circumvent CORS
+app.use('/proxy', function(req, res) {  
+  var url = req.url.replace('/?url=','');
+  req.pipe(request(url)).pipe(res);
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(busboy());
@@ -105,6 +114,7 @@ app.use(passport.session());
 app.use('/', routes);
 app.use('/users', users);
 app.use('/documents', documents);
+app.use('/read', reader);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

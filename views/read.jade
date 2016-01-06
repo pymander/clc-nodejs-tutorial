@@ -1,0 +1,42 @@
+extends layout
+
+block content
+
+  div#container
+
+    div#reader
+      div#top-controls
+        button#prev Previous
+        button#next Next
+        | &nbsp;&nbsp; 
+        span Page: 
+          span#page_num
+          |  / 
+          span#page_count
+      canvas#the-canvas(style="border:1px solid black;width:100%")
+      div#bottom-controls
+        button#prev2 Previous
+        button#next2 Next
+
+    div#comments
+      div#comments-form
+        h3 Add a comment
+        form
+          textarea#comment-text(style="width:100%" rows="5")
+          br
+          input#send-comment(type="button" value="Submit")
+          input(type="reset" value="Clear")
+          input#comments-reload(type="button" value="Reload")
+      div#comments-content
+
+  script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+  script(src='/javascripts/compatibility.js')
+  script(src='/javascripts/pdf.js')
+  script(src='/javascripts/pdf.worker.js')
+
+  script
+    | var documentKey = "#{key}";
+    include scripts/comments.js
+    | var url = '/proxy?url=#{document.url}'; 
+    include scripts/pdfreader.js
+

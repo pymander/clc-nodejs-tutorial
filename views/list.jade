@@ -10,5 +10,5 @@ block content
   ul
     each doc in items
       li
-        a(href="#{doc.value.url}") #{doc.value.title} 
+        a(href="/read/#{doc.path.key}") #{doc.value.title} 
         |  uploaded by #{doc.value.user}

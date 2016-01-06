@@ -76,7 +76,7 @@ router.post('/add', function(req, res, next) {
       }
 
       // The knox library doesn't handle spaces in filenames well.
-      filename = filename.replace(" ", "_");
+      filename = filename.replace(/ /g, "_");
       
       // Save document info for later.
       docinfo.filename = filename;

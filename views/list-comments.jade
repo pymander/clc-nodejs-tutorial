@@ -1,0 +1,10 @@
+each comment in comments
+  div.comment(id="comment-#{comment.path.ref}")
+    p
+      strong From 
+      | #{comment.value.user} 
+      strong  on 
+      | #{new Date(comment.path.timestamp).toDateString()} 
+      strong  at 
+      | #{new Date(comment.path.timestamp).toTimeString()}
+    p #{comment.value.comment}
