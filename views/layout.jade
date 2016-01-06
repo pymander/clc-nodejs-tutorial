@@ -4,14 +4,21 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    div
+      a(href='/') Home
+      |  | 
+      a(href='/documents/add') Add Document
+      |  | 
+      a(href='/documents/list') List Documents
+  
     block content
 
-    if session.error
-      p(class='error') #{session.error}
+    if error
+      p(class='error') #{error}
 
-    if session.notice
-      p(class='notice') #{session.notice}
+    if notice
+      p(class='notice') #{notice}
 
-    if session.success
-      p(class='success') #{session.success}
+    if success
+      p(class='success') #{success}
 

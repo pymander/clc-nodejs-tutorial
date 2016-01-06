@@ -11,8 +11,15 @@ block content
   if user
     p 
       strong Welcome back, #{user.username}!
-    p
-      a(href='/logout') Logout
+    ul
+      li
+        a(href='/documents/add') Add a document
+        |  to the archive.
+      li
+        a(href='/documents/list') List documents
+        |  in the archive.
+      li
+        a(href='/logout') Logout
   else
     p You have never been here before. 
       a(href='/signin') Please sign in

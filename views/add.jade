@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  
+  form(method='post', action='/documents/add', enctype="multipart/form-data")
+    label Document Title: 
+      input(type='text', name='title', size='20')
+    br
+    label Keywords: 
+      input(type='text', name='keywords', size='40')
+    br
+    input(type='file', name='document')
+    br
+    input(type='submit', value='Upload')
+    

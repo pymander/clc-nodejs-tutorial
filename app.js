@@ -5,8 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var busboy = require('connect-busboy');
+
+// Our routes
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var documents = require('./routes/documents');
 
 // Load our functions.
 var funct = require('./functions.js');
@@ -89,6 +93,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(busboy());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -99,6 +104,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/documents', documents);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
